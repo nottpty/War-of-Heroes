@@ -2,13 +2,13 @@ var GameLayer = cc.LayerColor.extend({
 	init: function() {
 		this.background = cc.Sprite.create( "res/images/background2.gif" );
 		this.background.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2) );
-		// this.player = new Player();
-		// this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2) );
+		this.player = new Player();
+		this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2) );
 		this.addChild( this.background );
-		// this.addChild( this.player );
+		this.addChild( this.player );
 		this.addKeyboardHandlers();
 		this.state = GameLayer.STATES.FRONT;
-		// this.player = scheduleUpdate();
+		this.player.scheduleUpdate();
 	},
 	addKeyboardHandlers: function(){
         var self = this;
@@ -28,7 +28,7 @@ var GameLayer = cc.LayerColor.extend({
         if ( this.state == GameLayer.STATES.FRONT ) {
             this.state = GameLayer.STATES.STARTED;
             this.player.start();
-            this.player.jump();
+         //   this.player.jump();
         } else if ( this.state == GameLayer.STATES.STARTED ) {
             this.player.jump();
         }

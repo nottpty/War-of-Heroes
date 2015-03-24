@@ -1,7 +1,7 @@
 var Player = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'res/images/dot.png' );
+        this.initWithFile( 'res/images/sniper2.png' );
         this.vy = 15;
         this.started = false;
     },
