@@ -39,6 +39,12 @@ var GameLayer = cc.LayerColor.extend({
     onKeyDown: function( keyCode, event ) {
         console.log('PRESS :' + keyCode.toString());
         if(keyCode == GameLayer.ARROWDIR.LEFT || keyCode == GameLayer.ARROWDIR.RIGHT ){
+            if(keyCode == GameLayer.ARROWDIR.LEFT){
+                this.player.initWithFile( 'res/images/sniper2.png' );
+            }
+            else if(keyCode == GameLayer.ARROWDIR.RIGHT){
+                this.player.initWithFile( 'res/images/sniper3.png' );
+            }
             this.player.switchDirection(keyCode);
             this.player.checkPlayers();
         }
