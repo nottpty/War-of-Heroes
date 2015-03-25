@@ -2,15 +2,16 @@ var Player = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'res/images/sniper2.png' );
-        this.vy = 15;
         this.started = false;
-        this.jumped = false;
         this.checkPlayer = false;
     },
 
     update: function( dt ) {
+    	this.movementPlayer();
+    },
 
-    	if(this.started){
+    movementPlayer: function() {
+        if(this.started){
             if(this.checkPlayer){
                 this.pos = this.getPosition(); 
                 if( this.direction == Player.DIR.RIGHT ){
@@ -19,7 +20,7 @@ var Player = cc.Sprite.extend({
                 else if( this.direction == Player.DIR.LEFT ){
                     this.leftDirection(this.pos);
                 }
-    	   }
+           }
         }
     },
 
