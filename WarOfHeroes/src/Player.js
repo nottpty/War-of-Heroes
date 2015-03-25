@@ -47,7 +47,7 @@ var Player = cc.Sprite.extend({
 
     rightDirection: function(pos) {
         if( pos.x < screenWidth ){
-            this.setPosition( new cc.Point( pos.x + 5,pos.y) );
+            this.setPosition( new cc.Point( pos.x + 3,pos.y) );
         }else {
             this.setPosition( new cc.Point( 0 , pos.y));
         }
@@ -57,7 +57,7 @@ var Player = cc.Sprite.extend({
         if( pos.x < 0 ){
             this.setPosition( new cc.Point( screenWidth , pos.y));   
         }else {
-                this.setPosition( new cc.Point( pos.x - 5,pos.y) );
+                this.setPosition( new cc.Point( pos.x - 3,pos.y) );
         }
     }
     
