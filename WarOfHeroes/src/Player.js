@@ -1,9 +1,12 @@
 var Player = cc.Sprite.extend({
-    ctor: function() {
+    ctor: function(gameLayer) {
+        this.GameLayer = gameLayer;
         this._super();
         this.initWithFile( 'res/images/sniper2.png' );
+        this.direction = Player.DIR.LEFT;
         this.started = false;
         this.checkPlayer = false;
+        this.changeRotation = true;
     },
 
     update: function( dt ) {
@@ -24,6 +27,22 @@ var Player = cc.Sprite.extend({
         }
     },
 
+    fire: function(){
+        var bullet = new Bullet(this.direction);
+        bullet.setPosition( this.getPosition() );
+        this.GameLayer.addChild( bullet );
+        bullet.scheduleUpdate();
+
+    },
+
+    canRotations: function() {
+        this.changeRotation = true;
+    },
+
+    canNotRotation: function() {
+        this.changeRotation = false;
+    },
+
     checkPlayers: function() {
         this.checkPlayer = true;
     },
@@ -42,6 +61,7 @@ var Player = cc.Sprite.extend({
             this.direction = Player.DIR.LEFT;
         } else if(arrowDirection == GameLayer.ARROWDIR.RIGHT){
             this.direction = Player.DIR.RIGHT;
+            
         }
     },
 
@@ -57,7 +77,7 @@ var Player = cc.Sprite.extend({
         if( pos.x < 0 ){
             this.setPosition( new cc.Point( screenWidth , pos.y));   
         }else {
-                this.setPosition( new cc.Point( pos.x - 3,pos.y) );
+            this.setPosition( new cc.Point( pos.x - 3,pos.y) );
         }
     }
     

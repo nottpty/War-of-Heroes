@@ -14,7 +14,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createPlayer: function() {
-        this.player = new Player();
+        this.player = new Player(this);
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 8) );
     },
 
@@ -38,7 +38,7 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyDown: function( keyCode, event ) {
         console.log('PRESS :' + keyCode.toString());
-        if(keyCode == GameLayer.ARROWDIR.LEFT || keyCode == GameLayer.ARROWDIR.RIGHT ){
+        if(keyCode == GameLayer.ARROWDIR.LEFT || keyCode == GameLayer.ARROWDIR.RIGHT){
             if(keyCode == GameLayer.ARROWDIR.LEFT){
                 this.player.initWithFile( 'res/images/sniper2.png' );
             }
@@ -47,6 +47,11 @@ var GameLayer = cc.LayerColor.extend({
             }
             this.player.switchDirection(keyCode);
             this.player.checkPlayers();
+        }
+
+        if(keyCode == GameLayer.ARROWDIR.SPACEBAR){
+            console.log("Spacebar: " + keyCode.toString() );
+            this.player.fire();
         }
     },
 
@@ -72,5 +77,6 @@ GameLayer.STATES = {
 
 GameLayer.ARROWDIR = {
     LEFT : 37,
-    RIGHT : 39
+    RIGHT : 39,
+    SPACEBAR : 32
 };
