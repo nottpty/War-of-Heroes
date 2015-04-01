@@ -2,10 +2,12 @@ var GameLayer = cc.LayerColor.extend({
 	init: function() {
         this.createBackground();
         this.createPlayer();
+        this.createBot();
         this.createAddChild();
 		this.addKeyboardHandlers();
 		this.state = GameLayer.STATES.FRONT;
 		this.player.scheduleUpdate();
+        this.clockwerk.scheduleUpdate();
 	},
 
     createBackground: function() {
@@ -18,9 +20,19 @@ var GameLayer = cc.LayerColor.extend({
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 8) );
     },
 
+    createBot: function() {
+        this.clockwerk = new Clockwerk();
+        this.clockwerk.setPosition( new cc.Point( screenWidth / 3, screenHeight / 8) );
+    },
+
     createAddChild: function() {
         this.addChild( this.background );
         this.addChild( this.player );
+        this.addChild( this.clockwerk );
+    },
+
+    intersec: function() {
+        
     },
 
 	addKeyboardHandlers: function(){
