@@ -29,7 +29,11 @@ var Player = cc.Sprite.extend({
 
     fire: function(){
         var bullet = new Bullet(this.direction);
-        bullet.setPosition( this.getPosition() );
+        if( this.direction == Player.DIR.LEFT ){
+            bullet.setPosition( this.getPosition().x-50,this.getPosition().y+16);
+        } else {
+            bullet.setPosition( this.getPosition().x+50,this.getPosition().y+16);
+        }
         this.GameLayer.addChild( bullet );
         bullet.scheduleUpdate();
 
