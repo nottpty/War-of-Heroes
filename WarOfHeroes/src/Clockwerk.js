@@ -25,7 +25,7 @@ var Clockwerk = cc.Sprite.extend({
 
     rightDirection: function(pos) {
         if( pos.x < screenWidth ){
-            this.setPosition( new cc.Point( pos.x + 3,pos.y) );
+            this.setPosition( new cc.Point( pos.x + 1,pos.y) );
         }else {
             this.setPosition( new cc.Point( 0 , pos.y));
         }
@@ -35,4 +35,9 @@ var Clockwerk = cc.Sprite.extend({
 Clockwerk.DIR = {
     RIGHT: 1,
     LEFT: 2
+};
+
+Clockwerk.STATUS = {
+    WEIDTH: 100,
+    HEIGHT: 105
 };

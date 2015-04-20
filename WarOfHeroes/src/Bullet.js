@@ -13,7 +13,7 @@ var Bullet = cc.Sprite.extend({
         this.pos = this.getPosition(); 
                 if( this.direction == Bullet.DIR.RIGHT ){
                     this.rightDirection(this.pos);
-                }else if(this.getPositionX() > screenWidth || this.getPositionX() < 0){
+                }else if(this.getPositionX() < 0){
                     this.removeFromParent();
                 }else if( this.direction == Bullet.DIR.LEFT ){
                     this.leftDirection(this.pos);
@@ -43,3 +43,8 @@ Bullet.DIR = {
     RIGHT: 1,
     LEFT: 2
 };
+
+Bullet.STATUS = {
+    WEIDTH: 25,
+    HEIGHT: 15
+}

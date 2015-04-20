@@ -8,6 +8,7 @@ var GameLayer = cc.LayerColor.extend({
 		this.state = GameLayer.STATES.FRONT;
 		this.player.scheduleUpdate();
         this.clockwerk.scheduleUpdate();
+        this.arrBullet = [];
 	},
 
     createBackground: function() {
@@ -17,12 +18,12 @@ var GameLayer = cc.LayerColor.extend({
 
     createPlayer: function() {
         this.player = new Player(this);
-        this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 8) );
+        this.player.setPosition( new cc.Point( 700, screenHeight / 8) );
     },
 
     createBot: function() {
         this.clockwerk = new Clockwerk();
-        this.clockwerk.setPosition( new cc.Point( screenWidth / 3, screenHeight / 8) );
+        this.clockwerk.setPosition( new cc.Point( 100, screenHeight / 8) );
     },
 
     createAddChild: function() {
@@ -32,7 +33,14 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     intersec: function() {
-        
+        var posPlayer  = this.player.getPosition();
+        var posBot = this.clockwerk.getPosition();
+        for(var i = 0 ; i<arrBullet.length ; i++ ){
+            var posBullet = arrBullet[i].getPosition;
+            if((Math.abs(posBullet.x-posBot.x)< arrBullet[i].STATUS.WIDTH/2+this.clockwerk.STATUS.WIDTH/2)&&(Math.abs(posBullet.y-posBot.y)< arrBullet[i].STATUS.HEIGHT/2+this.clockwerk.STATUS.HEIGHT/2))
+               console.log('HIT');
+                this.clockwerk.removeFromParent();        
+         }   
     },
 
 	addKeyboardHandlers: function(){
@@ -50,26 +58,18 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyDown: function( keyCode, event ) {
         console.log('PRESS :' + keyCode.toString());
-        if(keyCode == GameLayer.ARROWDIR.LEFT || keyCode == GameLayer.ARROWDIR.RIGHT){
-            if(keyCode == GameLayer.ARROWDIR.LEFT){
-                this.player.initWithFile( 'res/images/sniper2.png' );
-            }
-            else if(keyCode == GameLayer.ARROWDIR.RIGHT){
-                this.player.initWithFile( 'res/images/sniper3.png' );
-            }
-            this.player.switchDirection(keyCode);
             this.player.checkPlayers();
-        }
 
-        if(keyCode == GameLayer.ARROWDIR.SPACEBAR){
-            console.log("Spacebar: " + keyCode.toString() );
-            this.player.fire();
-        }
     },
 
     onKeyUp: function( keyCode, event ) {
+        if(keyCode == GameLayer.ARROWDIR.SPACEBAR){
+                    console.log("Spacebar: " + keyCode.toString() );
+                    this.arrBullet.push(this.player.fire());
+        }
         console.log( 'Up: ' + keyCode.toString() );
         this.player.stopPlayer();
+
     }
 });
 
