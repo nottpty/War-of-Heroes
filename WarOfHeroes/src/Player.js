@@ -7,6 +7,7 @@ var Player = cc.Sprite.extend({
         this.started = false;
         this.checkPlayer = false;
         this.changeRotation = true;
+        this.score = 0;
     },
 
     update: function( dt ) {
@@ -21,6 +22,7 @@ var Player = cc.Sprite.extend({
             bullet.setPosition( this.getPosition().x+50,this.getPosition().y+16);
         }
         this.GameLayer.addChild( bullet );
+        console.log('FIRE');
         bullet.scheduleUpdate();
         return bullet;
 
@@ -51,4 +53,9 @@ var Player = cc.Sprite.extend({
 Player.DIR = {
     RIGHT: 1,
     LEFT: 2
+};
+
+Player.STATUS = {
+    WIDTH: 100,
+    HEIGHT: 90
 };

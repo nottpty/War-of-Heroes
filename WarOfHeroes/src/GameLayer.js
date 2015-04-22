@@ -1,15 +1,21 @@
 var GameLayer = cc.LayerColor.extend({
 	init: function() {
+        this.arrBullet = [];
         this.createBackground();
         this.createPlayer();
         this.createBot();
         this.createAddChild();
 		this.addKeyboardHandlers();
 		this.state = GameLayer.STATES.FRONT;
+        this.scheduleUpdate();
 		this.player.scheduleUpdate();
         this.clockwerk.scheduleUpdate();
-        this.arrBullet = [];
+       
 	},
+
+    update: function(){
+        this.intersect();
+    },
 
     createBackground: function() {
         this.background = cc.Sprite.create( "res/images/background2.gif" );
@@ -26,21 +32,35 @@ var GameLayer = cc.LayerColor.extend({
         this.clockwerk.setPosition( new cc.Point( 100, screenHeight / 8) );
     },
 
+    botDead: function() {
+        this.clockwerk.setPosition(-5000,-10000);
+        this.removeChild(this.clockwerk); 
+    },
+
     createAddChild: function() {
         this.addChild( this.background );
         this.addChild( this.player );
         this.addChild( this.clockwerk );
     },
 
-    intersec: function() {
+    intersect: function() {
         var posPlayer  = this.player.getPosition();
         var posBot = this.clockwerk.getPosition();
-        for(var i = 0 ; i<arrBullet.length ; i++ ){
-            var posBullet = arrBullet[i].getPosition;
-            if((Math.abs(posBullet.x-posBot.x)< arrBullet[i].STATUS.WIDTH/2+this.clockwerk.STATUS.WIDTH/2)&&(Math.abs(posBullet.y-posBot.y)< arrBullet[i].STATUS.HEIGHT/2+this.clockwerk.STATUS.HEIGHT/2))
-               console.log('HIT');
-                this.clockwerk.removeFromParent();        
-         }   
+        for(var i = 0 ; i<this.arrBullet.length ; i++ ){
+            var posBullet = this.arrBullet[i].getPosition();
+            if((Math.abs(posBullet.x-posBot.x)< Clockwerk.STATUS.WIDTH/2)&&(Math.abs(posBullet.y-posBot.y)< Clockwerk.STATUS.HEIGHT/2)){
+                console.log('INTERSECT BULLET'); 
+                this.botDead();   
+                this.arrBullet[i].removeFromParent();
+                this.arrBullet.pop();
+                this.player.score += 1;
+                console.log('Score : '+this.player.score);
+            }
+         }
+         if((Math.abs(posPlayer.x-posBot.x)< Clockwerk.STATUS.WIDTH/2)&&(Math.abs(posPlayer.y-posBot.y)< Clockwerk.STATUS.HEIGHT/2)){
+            console.log('INTERSECT PLAYER ');
+                this.removeChild(this.player);     
+        }   
     },
 
 	addKeyboardHandlers: function(){
@@ -68,7 +88,6 @@ var GameLayer = cc.LayerColor.extend({
                     this.arrBullet.push(this.player.fire());
         }
         console.log( 'Up: ' + keyCode.toString() );
-        this.player.stopPlayer();
 
     }
 });

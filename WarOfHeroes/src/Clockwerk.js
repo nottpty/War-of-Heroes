@@ -38,6 +38,6 @@ Clockwerk.DIR = {
 };
 
 Clockwerk.STATUS = {
-    WEIDTH: 100,
+    WIDTH: 100,
     HEIGHT: 105
 };

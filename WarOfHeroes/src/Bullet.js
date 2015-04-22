@@ -29,10 +29,6 @@ var Bullet = cc.Sprite.extend({
         }
     },
 
-    rightDirection: function(pos) {
-        this.setPosition( new cc.Point( pos.x + 7,pos.y) )
-    },
-
     leftDirection: function(pos) {
         this.setPosition( new cc.Point( pos.x - 7,pos.y) );
     }
@@ -45,6 +41,6 @@ Bullet.DIR = {
 };
 
 Bullet.STATUS = {
-    WEIDTH: 25,
+    WIDTH: 25,
     HEIGHT: 15
 }
