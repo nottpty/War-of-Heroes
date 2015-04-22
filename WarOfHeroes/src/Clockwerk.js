@@ -1,6 +1,7 @@
 var Clockwerk = cc.Sprite.extend({
-	ctor: function(){
+	ctor: function(GameLayer){
         this._super();
+        this.gamelayer = GameLayer;
         this.initWithFile( 'res/images/clockwerk1.png' );
         this.direction = Clockwerk.DIR.RIGHT;
         this.started = true;
@@ -9,7 +10,8 @@ var Clockwerk = cc.Sprite.extend({
 	},
 
 	update: function( dt ){
-		this.movementBot();
+        if(this.gamelayer.checkGame == 0)
+		     this.movementBot();
 	},
 
 	movementBot: function() {

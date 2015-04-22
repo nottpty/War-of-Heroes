@@ -1,6 +1,8 @@
 var GameLayer = cc.LayerColor.extend({
 	init: function() {
         this.arrBullet = [];
+        this.checkGame = 0;
+        this.started = 
         this.createBackground();
         this.createPlayer();
         this.createBot();
@@ -28,7 +30,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createBot: function() {
-        this.clockwerk = new Clockwerk();
+        this.clockwerk = new Clockwerk(this);
         this.clockwerk.setPosition( new cc.Point( 100, screenHeight / 8) );
     },
 
@@ -43,6 +45,7 @@ var GameLayer = cc.LayerColor.extend({
         this.player.setPosition(100000,100000);
         this.removeChild(this.player);
         console.log('Player died');
+        this.checkGame = 1;
     },
 
     createAddChild: function() {
