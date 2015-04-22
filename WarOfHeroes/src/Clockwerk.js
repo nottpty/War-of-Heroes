@@ -5,6 +5,7 @@ var Clockwerk = cc.Sprite.extend({
         this.direction = Clockwerk.DIR.RIGHT;
         this.started = true;
         this.changeRotation = true;
+        this.hp = 3;
 	},
 
 	update: function( dt ){

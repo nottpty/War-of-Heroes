@@ -34,7 +34,15 @@ var GameLayer = cc.LayerColor.extend({
 
     botDead: function() {
         this.clockwerk.setPosition(-5000,-10000);
-        this.removeChild(this.clockwerk); 
+        this.removeChild(this.clockwerk);
+        this.player.score += 1; 
+        console.log('Score : '+this.player.score);
+    },
+
+    playerDead: function() {
+        this.player.setPosition(100000,100000);
+        this.removeChild(this.player);
+        console.log('Player died');
     },
 
     createAddChild: function() {
@@ -49,17 +57,19 @@ var GameLayer = cc.LayerColor.extend({
         for(var i = 0 ; i<this.arrBullet.length ; i++ ){
             var posBullet = this.arrBullet[i].getPosition();
             if((Math.abs(posBullet.x-posBot.x)< Clockwerk.STATUS.WIDTH/2)&&(Math.abs(posBullet.y-posBot.y)< Clockwerk.STATUS.HEIGHT/2)){
-                console.log('INTERSECT BULLET'); 
-                this.botDead();   
+                console.log('INTERSECT BULLET');
+                if(this.clockwerk.hp <= 1){ 
+                    this.botDead();   
+                }
                 this.arrBullet[i].removeFromParent();
                 this.arrBullet.pop();
-                this.player.score += 1;
-                console.log('Score : '+this.player.score);
+                this.clockwerk.hp -= 1;
+                console.log('hp bot : '+this.clockwerk.hp);
             }
          }
          if((Math.abs(posPlayer.x-posBot.x)< Clockwerk.STATUS.WIDTH/2)&&(Math.abs(posPlayer.y-posBot.y)< Clockwerk.STATUS.HEIGHT/2)){
             console.log('INTERSECT PLAYER ');
-                this.removeChild(this.player);     
+                this.playerDead();   
         }   
     },
 
