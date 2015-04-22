@@ -39,6 +39,7 @@ var GameLayer = cc.LayerColor.extend({
         this.removeChild(this.clockwerk);
         this.player.score += 1; 
         console.log('Score : '+this.player.score);
+        this.scoreLabel.setString('Your score : '+this.player.score);
     },
 
     playerDead: function() {
@@ -49,7 +50,11 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createAddChild: function() {
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 30 );
+        this.scoreLabel.setPosition( new cc.Point( screenWidth/2, screenHeight/1.1 ) );
+        this.scoreLabel.setString('Your score : '+this.player.score);
         this.addChild( this.background );
+        this.addChild( this.scoreLabel );
         this.addChild( this.player );
         this.addChild( this.clockwerk );
     },
@@ -72,7 +77,11 @@ var GameLayer = cc.LayerColor.extend({
          }
          if((Math.abs(posPlayer.x-posBot.x)< Clockwerk.STATUS.WIDTH/2)&&(Math.abs(posPlayer.y-posBot.y)< Clockwerk.STATUS.HEIGHT/2)){
             console.log('INTERSECT PLAYER ');
-                this.playerDead();   
+                this.playerDead();
+                this.deadLabel = cc.LabelTTF.create( '0', 'Arial', 90 );
+                this.deadLabel.setPosition( new cc.Point( screenWidth/2, screenHeight/2 ) );
+                this.deadLabel.setString('You Dead!!');
+                this.addChild( this.deadLabel );   
         }   
     },
 
