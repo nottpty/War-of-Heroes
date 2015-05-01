@@ -15,6 +15,9 @@
         "src/GameLayer.js",
         "src/Player.js",
         "src/Bullet.js",
-        "src/Clockwerk.js"
+        "src/Bot.js",
+        "src/Clockwerk.js",
+        "src/Huskar.js",
+        "src/Roshan.js"
     ]
 }

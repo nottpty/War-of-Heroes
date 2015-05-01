@@ -1,13 +1,13 @@
-var Clockwerk = Bot.extend({
+var Huskar = Bot.extend({
 	ctor: function(GameLayer,hp){
         this._super(GameLayer,hp);
-        // this.gamelayer = GameLayer;
-         this.initWithFile( 'res/images/clockwerk1.png' );
-        // this.direction = Clockwerk.DIR.RIGHT;
-        // this.started = true;
-        // this.changeRotation = true;
-        // this.hp = 5;
-	}//,
+        //this.gamelayer = GameLayer;
+        this.initWithFile( 'res/images/huskar1.png' );
+        // this.direction = Huskar.DIR.RIGHT;
+        //this.started = true;
+        //this.changeRotation = true;
+        //this.hp = 10;
+	}//s,
 
 	// update: function( dt ){
  //        if(this.gamelayer.checkGame == 0)
@@ -17,10 +17,10 @@ var Clockwerk = Bot.extend({
 	// movementBot: function() {
  //        if(this.started){
  //                this.pos = this.getPosition(); 
- //                if( this.direction == Clockwerk.DIR.RIGHT ){
+ //                if( this.direction == Huskar.DIR.RIGHT ){
  //                    this.rightDirection(this.pos);
  //                }
- //                else if( this.direction == Clockwerk.DIR.LEFT ){
+ //                else if( this.direction == Huskar.DIR.LEFT ){
  //                    this.leftDirection(this.pos);
  //                }
  //        }
@@ -35,12 +35,12 @@ var Clockwerk = Bot.extend({
  //    }
 });
 
-//  Clockwerk.DIR = {
-//      RIGHT: 1,
-//      LEFT: 2
+// Huskar.DIR = {
+//     RIGHT: 1,
+//     LEFT: 2
 // };
 
-Clockwerk.STATUS = {
-    WIDTH: 100,
-    HEIGHT: 105
+Huskar.STATUS = {
+    WIDTH: 200,
+    HEIGHT: 400
 };

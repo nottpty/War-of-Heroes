@@ -3,10 +3,15 @@ var Bullet = cc.Sprite.extend({
 		this._super();
 		this.initWithFile( 'res/images/bullet2.png' );
 		this.direction = direction;
+        this.power;
 	},
 
 	update: function( dt ) {
     	this.movementBullet();
+    },
+
+    setPower: function(power){
+        this.power = power;
     },
 
     movementBullet: function() {
