@@ -1,13 +1,13 @@
-var Roshan = Bot.extend({
+var Spectre = Bot.extend({
 	ctor: function(GameLayer,hp){
         this._super(GameLayer,hp);
-        this.initWithFile( 'res/images/roshan1.png' );
+        this.initWithFile( 'res/images/spectre.png' );
 
 	}
 
 });
 
-Roshan.STATUS = {
+Spectre.STATUS = {
     WIDTH: 450,
     HEIGHT: 500
 };

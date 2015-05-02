@@ -18,6 +18,9 @@
         "src/Bot.js",
         "src/Clockwerk.js",
         "src/Huskar.js",
-        "src/Roshan.js"
+        "src/Roshan.js",
+        "src/Doom.js",
+        "src/Spectre.js",
+        "src/Sky.js"
     ]
 }

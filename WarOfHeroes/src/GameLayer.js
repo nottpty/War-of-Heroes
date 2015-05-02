@@ -28,9 +28,12 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createBot: function() {
-        this.clockwerk = new Clockwerk(this,5);
-        this.huskar = new Huskar(this,10);
-        this.roshan = new Roshan(this,20);
+        this.clockwerk = new Clockwerk(this,10);
+        this.huskar = new Huskar(this,20);
+        this.roshan = new Roshan(this,30);
+        this.doom = new Doom(this,35);
+        this.sky = new Sky(this,40);
+        this.spectre = new Spectre(this,50);
         this.clockwerk.setPosition( new cc.Point( 100, screenHeight / 8) );
     },
 
@@ -49,7 +52,7 @@ var GameLayer = cc.LayerColor.extend({
             this.huskar.setPosition(-5000,-10000);
             this.removeChild(this.huskar);
             this.player.score += 2; 
-            this.player.money +=6;
+            this.player.money += 6;
             console.log('Score : '+this.player.score);
             this.scoreLabel.setString('Your score : '+this.player.score);
             this.moneyLabel.setString('Your money : '+this.player.money);
@@ -59,11 +62,22 @@ var GameLayer = cc.LayerColor.extend({
             this.roshan.setPosition(-5000,-10000);
             this.removeChild(this.roshan);
             this.player.score += 6; 
-            this.player.money +=15
+            this.player.money += 15;
+            this.player.stage += 1; 
             console.log('Score : '+this.player.score);
-            this.scoreLabel.setString('Your score : '+this.player.score);
-            this.moneyLabel.setString('Your money : '+this.player.money);
-            this.stageLabel.setString('Stage : '+this.player.stage);
+            this.scoreLabel.setString('Your score : '+ this.player.score);
+            this.moneyLabel.setString('Your money : '+ this.player.money);
+            this.stageLabel.setString('Stage : '+ this.player.stage);
+        }
+
+        if(this.doom.hp == 0){
+            this.doom.setPosition(-5000,-10000);
+            this.removeChild(this.doom);
+            this.player.score += 4; 
+            this.player.money += 10; 
+            console.log('Score : '+this.player.score);
+            this.scoreLabel.setString('Your score : '+ this.player.score);
+            this.moneyLabel.setString('Your money : '+ this.player.money);
         }
     },
 
@@ -97,6 +111,7 @@ var GameLayer = cc.LayerColor.extend({
         var posClockwerk = this.clockwerk.getPosition();
         var posHuskar = this.huskar.getPosition();
         var posRoshan = this.roshan.getPosition();
+        var posDoom = this.doom.getPosition();
         for(var i = 0 ; i<this.arrBullet.length ; i++ ){
             var posBullet = this.arrBullet[i].getPosition();
             if((Math.abs(posBullet.x-posClockwerk.x)< Clockwerk.STATUS.WIDTH/2)&&(Math.abs(posBullet.y-posClockwerk.y)< Clockwerk.STATUS.HEIGHT/2)){
@@ -105,9 +120,7 @@ var GameLayer = cc.LayerColor.extend({
                 this.arrBullet[i].removeFromParent();
                 this.arrBullet.splice(i,1);
                 if(this.clockwerk.hp == 2){
-                    this.huskar.setPosition( new cc.Point( 100, screenHeight/3) );
-                    this.addChild( this.huskar );
-                    this.huskar.scheduleUpdate();
+                    this.createHuskar();
                 }
                 if(this.clockwerk.hp <= 0){ 
                     this.botDead();   
@@ -121,9 +134,7 @@ var GameLayer = cc.LayerColor.extend({
                 this.arrBullet[i].removeFromParent();
                 this.arrBullet.splice(i,1);
                 if(this.huskar.hp == 2){
-                    this.roshan.setPosition( new cc.Point( 100, 265) );
-                    this.addChild( this.roshan );
-                    this.roshan.scheduleUpdate();
+                    this.createRoshan();
                 }
                 if(this.huskar.hp <= 0){ 
                     this.botDead();   
@@ -136,14 +147,25 @@ var GameLayer = cc.LayerColor.extend({
                 this.roshan.hp -= this.arrBullet[i].power;
                 this.arrBullet[i].removeFromParent();
                 this.arrBullet.splice(i,1);
+                if(this.roshan.hp == 2){
+                    this.createDoom();
+                }
                 if(this.roshan.hp <= 0){ 
                     this.botDead();  
-                    this.player.stage += 1; 
                 }
-                // if(this.huskar.hp == 2){
-                //     this.roshan.setPosition( new cc.Point( 100, 265) );
-                //     this.addChild( this.roshan );
-                //     this.roshan.scheduleUpdate();
+                console.log('hp bot : '+this.roshan.hp);
+            }
+
+            if((Math.abs(posBullet.x-posDoom.x)< Doom.STATUS.WIDTH/2)&&(Math.abs(posBullet.y-posDoom.y)< Doom.STATUS.HEIGHT/2)){
+                console.log('INTERSECT BULLET');
+                this.doom.hp -= this.arrBullet[i].power;
+                this.arrBullet[i].removeFromParent();
+                this.arrBullet.splice(i,1);
+                if(this.doom.hp <= 0){ 
+                    this.botDead();  
+                }
+                // if(this.doom.hp == 2){
+                //     this.createDoom();
                 // }
                 console.log('hp bot : '+this.roshan.hp);
             }
@@ -155,6 +177,8 @@ var GameLayer = cc.LayerColor.extend({
             this.showDead();
         if((Math.abs(posPlayer.x-posRoshan.x)< Roshan.STATUS.WIDTH/2)&&(Math.abs(posPlayer.y-posRoshan.y)< Roshan.STATUS.HEIGHT/2))
             this.showDead();
+        if((Math.abs(posPlayer.x-posDoom.x)< Doom.STATUS.WIDTH/2)&&(Math.abs(posPlayer.y-posDoom.y)< Doom.STATUS.HEIGHT/2))
+            this.showDead();
     },
 
     showDead: function(){
@@ -163,7 +187,43 @@ var GameLayer = cc.LayerColor.extend({
                 this.deadLabel = cc.LabelTTF.create( '0', 'Arial', 90 );
                 this.deadLabel.setPosition( new cc.Point( screenWidth/2, screenHeight/2 ) );
                 this.deadLabel.setString('You Dead!!');
-                this.addChild( this.deadLabel );  
+                this.addChild( this.deadLabel );
+    },
+
+    createClockwerk: function(){
+        this.clockwerk.setPosition( new cc.Point( 100, screenHeight/8) );
+        this.addChild( this.clockwerk );
+        this.clockwerk.scheduleUpdate();
+    },
+
+    createHuskar: function(){
+        this.huskar.setPosition( new cc.Point( 100, screenHeight/3) );
+        this.addChild( this.huskar );
+        this.huskar.scheduleUpdate();
+    },
+
+    createRoshan: function(){
+        this.roshan.setPosition( new cc.Point( 100, 265) );
+        this.addChild( this.roshan );
+        this.roshan.scheduleUpdate();
+    },
+
+    createDoom: function(){
+        this.doom.setPosition( new cc.Point( 100, screenHeight/5) );
+        this.addChild( this.doom );
+        this.doom.scheduleUpdate();
+    },
+
+    createSky: function(){
+        this.sky.setPosition( new cc.Point( 100, screenHeight/3) );
+        this.addChild( this.sky );
+        this.sky.scheduleUpdate();
+    },
+
+    createSpectre: function(){
+        this.spectre.setPosition( new cc.Point( 100, 265) );
+        this.addChild( this.spectre );
+        this.spectre.scheduleUpdate();
     },
 
 	addKeyboardHandlers: function(){
@@ -187,11 +247,30 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyUp: function( keyCode, event ) {
         if(keyCode == GameLayer.ARROWDIR.SPACEBAR){
+            if(this.player.stateBullet == 1){
                     console.log("Spacebar: " + keyCode.toString() );
                     this.arrBullet.push(this.player.fire());
+            }
+            else if(this.player.stateBullet == 2){
+                    console.log("Spacebar: " + keyCode.toString() );
+                    this.player.fire().initWithFile( 'res/images/bullet3.png' );
+                    this.arrBullet.push(this.player.fire());
+            }
         }
         console.log( 'Up: ' + keyCode.toString() );
-
+        if(keyCode == GameLayer.ARROWDIR.SHIFT){
+            if(this.player.money >= 20 && this.player.stateBullet == 1){
+                this.player.stateBullet = 2;
+                this.player.money -= 20;
+                this.player.power = 5;
+                this.moneyLabel.setString('Your money : '+ this.player.money);
+            }
+            else if(this.player.money >= 100 && this.player.stateBullet == 2){
+                this.player.stateBullet = 3;
+                this.player.money -= 100;
+                this.moneyLabel.setString('Your money : '+ this.player.money);
+            }
+        }
     }
 });
 

@@ -1,17 +1,28 @@
 var Bullet = cc.Sprite.extend({
-	ctor: function(direction) {
+	ctor: function(direction,stateBullet) {
 		this._super();
 		this.initWithFile( 'res/images/bullet2.png' );
 		this.direction = direction;
+        this.stateBullet = stateBullet;
         this.power;
 	},
 
 	update: function( dt ) {
     	this.movementBullet();
+        this.checkState(this.stateBullet);
     },
 
     setPower: function(power){
         this.power = power;
+    },
+
+    checkState: function(stateBullet){
+        if(this.stateBullet == 2){
+            this.initWithFile( 'res/images/bullet3.png' );
+        }
+        // else if(this.stateBullet == 3){
+        //     this.initWithFile( 'res/images/bullet3.png' );
+        // }
     },
 
     movementBullet: function() {

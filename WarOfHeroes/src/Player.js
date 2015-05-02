@@ -11,6 +11,7 @@ var Player = cc.Sprite.extend({
         this.power = 1;
         this.money = 0;
         this.stage = 1;
+        this.stateBullet = 1;
     },
 
     update: function( dt ) {
@@ -18,7 +19,7 @@ var Player = cc.Sprite.extend({
     },
 
     fire: function(){
-        var bullet = new Bullet(this.direction);
+        var bullet = new Bullet(this.direction,this.stateBullet);
         bullet.setPower(this.power);
         if( this.direction == Player.DIR.LEFT ){
             bullet.setPosition( this.getPosition().x-50,this.getPosition().y+16);
