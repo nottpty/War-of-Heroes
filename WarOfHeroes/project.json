@@ -20,7 +20,11 @@
         "src/Huskar.js",
         "src/Roshan.js",
         "src/Doom.js",
+        "src/Sky.js",
         "src/Spectre.js",
-        "src/Sky.js"
+        "src/Pudge.js",
+        "src/Night.js",
+        "src/Ezalor.js",
+        "src/Boss.js"
     ]
 }

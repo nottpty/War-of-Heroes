@@ -8,6 +8,6 @@ var Roshan = Bot.extend({
 });
 
 Roshan.STATUS = {
-    WIDTH: 450,
+    WIDTH: 350,
     HEIGHT: 500
 };

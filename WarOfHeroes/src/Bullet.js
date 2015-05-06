@@ -20,9 +20,9 @@ var Bullet = cc.Sprite.extend({
         if(this.stateBullet == 2){
             this.initWithFile( 'res/images/bullet3.png' );
         }
-        // else if(this.stateBullet == 3){
-        //     this.initWithFile( 'res/images/bullet3.png' );
-        // }
+        else if(this.stateBullet == 3){
+            this.initWithFile( 'res/images/bullet4.png' );
+        }
     },
 
     movementBullet: function() {

@@ -8,6 +8,6 @@ var Doom = Bot.extend({
 });
 
 Doom.STATUS = {
-    WIDTH: 100,
-    HEIGHT: 105
+    WIDTH: 130,
+    HEIGHT: 200
 };
