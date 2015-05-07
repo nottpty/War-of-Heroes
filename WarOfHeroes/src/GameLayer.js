@@ -35,11 +35,11 @@ var GameLayer = cc.LayerColor.extend({
         this.roshan = new Roshan(this,35);
         this.doom = new Doom(this,55);
         this.sky = new Sky(this,65);
-        this.spectre = new Spectre(this,85);
-        this.pudge = new Pudge(this,65);
-        this.night = new Night(this,75);
-        this.ezalor = new Ezalor(this,95);
-        this.boss = new Boss(this,1000);
+        this.spectre = new Spectre(this,80);
+        this.pudge = new Pudge(this,200);
+        this.night = new Night(this,300);
+        this.ezalor = new Ezalor(this,350);
+        this.boss = new Boss(this,900);
         this.clockwerk.setPosition( new cc.Point( 100, screenHeight / 8) );
     },
 
@@ -468,7 +468,7 @@ var GameLayer = cc.LayerColor.extend({
         }
         console.log( 'Up: ' + keyCode.toString() );
         if(keyCode == GameLayer.ARROWDIR.SHIFT){
-            if(this.player.money >= 20 && this.player.stateBullet == 1){
+            if(this.player.money >= 60 && this.player.stateBullet == 1){
                 this.player.stateBullet = 2;
                 this.player.money -= 20;
                 this.player.power = 5;
