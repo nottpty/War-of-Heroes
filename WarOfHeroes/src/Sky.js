@@ -8,6 +8,6 @@ var Sky = Bot.extend({
 });
 
 Sky.STATUS = {
-    WIDTH: 300,
+    WIDTH: 50,
     HEIGHT: 400
 };

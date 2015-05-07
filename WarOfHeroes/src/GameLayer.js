@@ -474,9 +474,9 @@ var GameLayer = cc.LayerColor.extend({
                 this.player.power = 5;
                 this.moneyLabel.setString('Your money : '+ this.player.money);
             }
-            else if(this.player.money >= 170 && this.player.stateBullet == 2){
+            else if(this.player.money >= 150 && this.player.stateBullet == 2){
                 this.player.stateBullet = 3;
-                this.player.money -= 170;
+                this.player.money -= 150;
                 this.player.power = 15
                 this.moneyLabel.setString('Your money : '+ this.player.money);
             }

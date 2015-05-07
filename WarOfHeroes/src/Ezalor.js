@@ -8,6 +8,6 @@ var Ezalor = Bot.extend({
 });
 
 Ezalor.STATUS = {
-    WIDTH: 450,
+    WIDTH: 100,
     HEIGHT: 500
 };
