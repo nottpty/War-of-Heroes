@@ -1,5 +1,6 @@
 var GameLayer = cc.LayerColor.extend({
 	init: function() {
+        cc.audioEngine.playEffect('res/sound/main.mp3');
         this.arrBullet = [];
         this.checkGame = 0;
         this.botDeadCount = 0;
@@ -465,6 +466,7 @@ var GameLayer = cc.LayerColor.extend({
         if(keyCode == GameLayer.ARROWDIR.SPACEBAR){
             console.log("Spacebar: " + keyCode.toString() );
             this.arrBullet.push(this.player.fire());
+            cc.audioEngine.playEffect('res/sound/hit.mp3');
         }
         console.log( 'Up: ' + keyCode.toString() );
         if(keyCode == GameLayer.ARROWDIR.SHIFT){

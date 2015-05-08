@@ -1,5 +1,7 @@
 var res = {
-	background2_gif : "res/images/background2.gif"
+	background2_gif : "res/images/background2.gif",
+	hitSound : "res/sound/hit.mp3",
+	mainSound : "res/sound/main.mp3"
 };
 
 var g_resources = [];
